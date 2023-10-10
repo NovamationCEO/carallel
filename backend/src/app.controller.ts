@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Article } from './types/Article';
 
 @Controller()
 export class AppController {
@@ -9,7 +10,7 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  getArticle(): string {
+  getArticle(): Article[] {
     return this.appService.getArticle();
   }
 }

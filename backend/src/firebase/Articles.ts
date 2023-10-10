@@ -22,7 +22,6 @@ async function makeSnap(): Promise<void> {
   if (!articlesCollection) return;
   const siteAuth = auth;
   await login();
-  console.log('CURRENT: ', siteAuth.currentUser.email);
   if (!siteAuth.currentUser) {
     return;
   }

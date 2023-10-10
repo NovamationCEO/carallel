@@ -30,6 +30,7 @@ export async function create() {
   await createUserWithEmailAndPassword(auth, siteEmail, sitePassword);
 }
 
-export async function login() {
+export async function login(): Promise<boolean> {
   await signInWithEmailAndPassword(auth, siteEmail, sitePassword);
+  return true;
 }

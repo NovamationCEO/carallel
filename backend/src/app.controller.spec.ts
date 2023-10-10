@@ -13,6 +13,8 @@ describe('AppController', () => {
     }).compile();
 
     appController = app.get<AppController>(AppController);
+
+    await login();
   });
 
   describe('root', () => {
@@ -20,10 +22,10 @@ describe('AppController', () => {
       expect(appController.getHello()).toBe('Hello World!');
     });
     it('should be true', async () => {
-      await login();
       const res = await appController.getArticle();
+      expect(res).toBeDefined();
       console.log(res);
-      expect(res).toBe(1);
+      expect(Array.isArray(res)).toBe(true);
     });
   });
 });
