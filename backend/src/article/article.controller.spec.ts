@@ -19,7 +19,7 @@ describe('AppController', () => {
 
   describe('Articles', () => {
     it('should return an array when getting all', async () => {
-      const res = await articleController.getAll();
+      const res = await articleController.findAll();
       expect(res).toBeDefined();
       expect(Array.isArray(res)).toBe(true);
     });
