@@ -80,9 +80,14 @@ if (articlesCollection) {
   makeSnap();
 }
 
-async function write(newArticle: Partial<Article>): Promise<string> {
-  const res = await addDoc(articlesCollection, newArticle);
-  return res.id;
+async function write(newArticle: Partial<Article>): Promise<string | boolean> {
+  try {
+    const res = await addDoc(articlesCollection, newArticle);
+    await makeSnap();
+    return res.id;
+  } catch (e) {
+    return false;
+  }
 }
 
 async function update(newArticle: Article): Promise<boolean> {

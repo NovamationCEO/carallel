@@ -15,7 +15,7 @@ export class ArticleService {
   }
 
   async create(articleDto: ArticleDto): Promise<boolean> {
-    console.log(articleDto);
-    return true;
+    const success = Articles.write(articleDto);
+    return !!success;
   }
 }
