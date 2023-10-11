@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Articles } from './firebase/Articles';
-import { Article } from './types/Article';
+import { Articles } from './article/Articles';
+import { Article } from './article/ArticleType';
 
 @Injectable()
 export class AppService {

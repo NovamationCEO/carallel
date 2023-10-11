@@ -10,8 +10,8 @@ import {
   setDoc,
   where,
 } from 'firebase/firestore';
-import { Article } from '../types/Article';
-import { auth, fireDB, login } from './FireApp';
+import { Article } from './ArticleType';
+import { auth, fireDB, login } from '../firebase/FireApp';
 
 const articlesCollection = collection(fireDB, 'articles');
 

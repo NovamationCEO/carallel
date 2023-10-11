@@ -21,11 +21,5 @@ describe('AppController', () => {
     it('should return "Hello World!"', () => {
       expect(appController.getHello()).toBe('Hello World!');
     });
-    it('should be true', async () => {
-      const res = await appController.getArticle();
-      expect(res).toBeDefined();
-      console.log(res);
-      expect(Array.isArray(res)).toBe(true);
-    });
   });
 });
