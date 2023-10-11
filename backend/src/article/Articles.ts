@@ -5,6 +5,7 @@ import {
   and,
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -45,7 +46,12 @@ async function get(filter?: string | AnyObj): Promise<Article[]> {
   let docQuery: Query | undefined = undefined;
 
   if (typeof filter === 'string') {
-    docQuery = query(articlesCollection, where('id', '==', filter));
+    const articleDoc = doc(articlesCollection, filter);
+    const articleSnap = await getDoc(articleDoc);
+    const res = articleSnap.data() as Article;
+    if (!res) return [];
+    res.id = articleSnap.id;
+    return [res];
   }
 
   if (typeof filter === 'object' && !docQuery) {
@@ -62,6 +68,7 @@ async function get(filter?: string | AnyObj): Promise<Article[]> {
   const snap = docQuery
     ? await getDocs(docQuery)
     : await getDocs(articlesCollection);
+
   const res = snap.docs.map((doc) => {
     const theData = doc.data() as Article;
     theData.id = doc.id;

@@ -1,6 +1,6 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ArticleService } from './article.service';
-import { Article } from './ArticleType';
+import { Article, ArticleDto } from './ArticleType';
 
 @Controller('articles')
 export class ArticleController {
@@ -12,12 +12,12 @@ export class ArticleController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Article | null> {
+  async findOne(@Param('id') id: string): Promise<Article[]> {
     return await this.articleService.findOne(id);
   }
 
   @Post()
-  create(): boolean {
-    return true;
+  async create(@Body() articleDto: ArticleDto): Promise<boolean> {
+    return await this.articleService.create(articleDto);
   }
 }
