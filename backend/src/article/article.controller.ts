@@ -12,8 +12,8 @@ export class ArticleController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Article[]> {
-    return await this.articleService.findOne(id);
+  async findById(@Param('id') id: string): Promise<Article> {
+    return await this.articleService.findById(id);
   }
 
   @Post()

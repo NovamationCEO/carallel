@@ -7,12 +7,11 @@ export class ArticleService {
   findAll(): Article[] {
     return Articles.all;
   }
-
   // TODO: Censor?
 
-  async findOne(id: string): Promise<Article[]> {
-    const res = await Articles.get(id);
-    return res || [];
+  async findById(id: string): Promise<Article> {
+    const res = await Articles.findById(id);
+    return res;
   }
 
   async create(articleDto: ArticleDto): Promise<boolean> {

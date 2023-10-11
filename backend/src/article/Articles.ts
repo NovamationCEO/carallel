@@ -39,22 +39,21 @@ async function makeSnap(): Promise<void> {
 
 type AnyObj = Record<string, string>;
 
+async function findById(id: string): Promise<Article> {
+  const articleDoc = doc(articlesCollection, id);
+  const articleSnap = await getDoc(articleDoc);
+  const res = articleSnap.data() as Article;
+  if (!res) return null;
+  res.id = articleSnap.id;
+  return res;
+}
+
 async function get(): Promise<Article[]>;
-async function get(id: string): Promise<Article[]>;
 async function get(filter: AnyObj): Promise<Article[]>;
-async function get(filter?: string | AnyObj): Promise<Article[]> {
+async function get(filter?: AnyObj): Promise<Article[]> {
   let docQuery: Query | undefined = undefined;
 
-  if (typeof filter === 'string') {
-    const articleDoc = doc(articlesCollection, filter);
-    const articleSnap = await getDoc(articleDoc);
-    const res = articleSnap.data() as Article;
-    if (!res) return [];
-    res.id = articleSnap.id;
-    return [res];
-  }
-
-  if (typeof filter === 'object' && !docQuery) {
+  if (filter) {
     const key = Object.keys(filter)[0] as keyof typeof filter;
     docQuery = query(
       articlesCollection,
@@ -95,6 +94,7 @@ export const Articles = {
   makeSnap: makeSnap,
   all: contents,
   get: get,
+  findById: findById,
   write: write,
   update: update,
 };
