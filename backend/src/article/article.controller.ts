@@ -16,7 +16,7 @@ export class ArticleController {
     return await this.articleService.findById(id);
   }
 
-  @Post()
+  @Post('create')
   async create(@Body() articleDto: ArticleDto): Promise<boolean> {
     return await this.articleService.create(articleDto);
   }
