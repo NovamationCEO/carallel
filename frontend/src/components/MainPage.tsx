@@ -1,16 +1,18 @@
 import React from "react";
-import { LoginButton } from "./LoginButtonDefault";
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import { Colors } from "constants/Colors";
-import { ContentBox } from "./ContentBox";
-import { AccountCircle } from "@mui/icons-material";
 import { StatusBox } from "./StatusBox";
-import { AdditionalBox } from "./AdditionalBox";
+import { AdditionalBox } from "./DetailsBox";
 import { ListBox } from "./ListBox";
 import { Banner } from "./Banner";
+import { Article } from "../../../backend/dist/article/ArticleType";
+import { AddArticleSection } from "./AddArticleSection";
 
 export function MainPage() {
   const [signedIn, setSignedIn] = React.useState(false);
+  const [selectedArticle, setSelectedArticle] = React.useState(
+    undefined as Article
+  );
   const backgroundGradient = `linear-gradient(333deg, rgba(255,255,255,1) 64%, ${Colors.light} 100%)`;
 
   return (
@@ -25,14 +27,18 @@ export function MainPage() {
     >
       <Banner signedIn={signedIn} setSignedIn={setSignedIn} />
       <Box display={"flex"} padding={1}>
-        <Box flex={1} flexDirection={"column"}>
+        <Box flex={2} flexDirection={"column"}>
           <StatusBox signedIn={signedIn} />
-          <AdditionalBox />
+          <AdditionalBox selectedArticle={selectedArticle} />
         </Box>
-        <Box flex={3}>
-          <ListBox signedIn={signedIn} />
+        <Box flex={5}>
+          <ListBox
+            setSelectedArticle={setSelectedArticle}
+            signedIn={signedIn}
+          />
         </Box>
       </Box>
+      <AddArticleSection />
     </Box>
   );
 }
