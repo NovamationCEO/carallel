@@ -1,7 +1,8 @@
-import { AlertColor, Box, Button, TextField } from "@mui/material";
+import { AlertColor, Box, Button, IconButton, TextField } from "@mui/material";
 import React from "react";
 import { ContentBox } from "./ContentBox";
 import { Colors } from "constants/Colors";
+import { AddCircle } from "@mui/icons-material";
 
 export function AddArticleSection(props: {
   snack: (text: string, severity?: AlertColor) => void;
@@ -10,6 +11,7 @@ export function AddArticleSection(props: {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [link, setLink] = React.useState("");
+  const [showSection, setShowSection] = React.useState(false);
 
   function clear() {
     setTitle("");
@@ -43,46 +45,58 @@ export function AddArticleSection(props: {
   }
 
   return (
-    <ContentBox>
-      <Box
-        bgcolor={Colors.light}
-        flex={1}
-        padding={1}
-        marginBottom={2}
-        fontWeight={"bold"}
-      >
-        Add New Article
+    <>
+      <Box marginTop={-2} marginLeft={1}>
+        <IconButton
+          color={showSection ? "primary" : "default"}
+          onClick={() => setShowSection((prev) => !prev)}
+        >
+          <AddCircle />
+        </IconButton>
       </Box>
-      <Box display={"flex"} flexDirection={"column"} gap={2}>
-        <TextField
-          variant={"filled"}
-          label={"title"}
-          value={title}
-          onChange={(evt) => setTitle(evt.target.value)}
-        />
-        <TextField
-          variant={"filled"}
-          label={"description"}
-          value={description}
-          multiline
-          onChange={(evt) => setDescription(evt.target.value)}
-        />
-        <TextField
-          variant={"filled"}
-          label={"link"}
-          value={link}
-          onChange={(evt) => setLink(evt.target.value)}
-        />
-        <Box display={"flex"} flexDirection={"row-reverse"}>
-          <Button
-            variant={"contained"}
-            disabled={!title.length || !description.length || !link.length}
-            onClick={submit}
+      {showSection && (
+        <ContentBox>
+          <Box
+            bgcolor={Colors.light}
+            flex={1}
+            padding={1}
+            marginBottom={2}
+            fontWeight={"bold"}
           >
-            Add
-          </Button>
-        </Box>
-      </Box>
-    </ContentBox>
+            Add New Article
+          </Box>
+          <Box display={"flex"} flexDirection={"column"} gap={2}>
+            <TextField
+              variant={"filled"}
+              label={"title"}
+              value={title}
+              onChange={(evt) => setTitle(evt.target.value)}
+            />
+            <TextField
+              variant={"filled"}
+              label={"description"}
+              value={description}
+              multiline
+              onChange={(evt) => setDescription(evt.target.value)}
+            />
+            <TextField
+              variant={"filled"}
+              label={"link"}
+              value={link}
+              onChange={(evt) => setLink(evt.target.value)}
+            />
+            <Box display={"flex"} flexDirection={"row-reverse"}>
+              <Button
+                variant={"contained"}
+                disabled={!title.length || !description.length || !link.length}
+                onClick={submit}
+              >
+                Add
+              </Button>
+            </Box>
+          </Box>
+        </ContentBox>
+      )}
+    </>
   );
 }

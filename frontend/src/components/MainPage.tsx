@@ -1,12 +1,13 @@
 import React from "react";
-import { Alert, AlertColor, Box, Snackbar } from "@mui/material";
+import { Alert, AlertColor, Box, IconButton, Snackbar } from "@mui/material";
 import { Colors } from "constants/Colors";
 import { StatusBox } from "./StatusBox";
-import { AdditionalBox } from "./DetailsBox";
+import { DetailsBox } from "./DetailsBox";
 import { ListBox } from "./ListBox";
 import { Banner } from "./Banner";
 import { Article } from "../../../backend/dist/article/ArticleType";
 import { AddArticleSection } from "./AddArticleSection";
+import { AddCircle } from "@mui/icons-material";
 
 export function MainPage() {
   const [signedIn, setSignedIn] = React.useState(false);
@@ -57,7 +58,7 @@ export function MainPage() {
       <Box display={"flex"} padding={1}>
         <Box flex={2} flexDirection={"column"}>
           <StatusBox signedIn={signedIn} />
-          <AdditionalBox selectedArticle={selectedArticle} />
+          <DetailsBox selectedArticle={selectedArticle} signedIn={signedIn} />
         </Box>
         <Box flex={5}>
           <ListBox
