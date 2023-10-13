@@ -1,5 +1,4 @@
 import {
-  Query,
   QuerySnapshot,
   addDoc,
   and,
@@ -11,7 +10,7 @@ import {
   setDoc,
   where,
 } from 'firebase/firestore';
-import { Article } from './ArticleType';
+import { Article, CensoredArticle } from './ArticleType';
 import { auth, fireDB, login } from '../firebase/FireApp';
 
 const articlesCollection = collection(fireDB, 'articles');
@@ -48,30 +47,32 @@ async function findById(id: string): Promise<Article> {
   return res;
 }
 
-async function get(): Promise<Article[]>;
-async function get(filter: AnyObj): Promise<Article[]>;
-async function get(filter?: AnyObj): Promise<Article[]> {
-  let docQuery: Query | undefined = undefined;
+async function findBy(filter: AnyObj): Promise<Article[]> {
+  const key = Object.keys(filter)[0] as keyof typeof filter;
+  const docQuery = query(
+    articlesCollection,
+    and(
+      where(key, '>=', filter[key]),
+      where(key, '<=', filter[key] + '\uf8ff'),
+    ),
+  );
 
-  if (filter) {
-    const key = Object.keys(filter)[0] as keyof typeof filter;
-    docQuery = query(
-      articlesCollection,
-      and(
-        where(key, '>=', filter[key]),
-        where(key, '<=', filter[key] + '\uf8ff'),
-      ),
-    );
-  }
-
-  const snap = docQuery
-    ? await getDocs(docQuery)
-    : await getDocs(articlesCollection);
+  const snap = await getDocs(docQuery);
 
   const res = snap.docs.map((doc) => {
     const theData = doc.data() as Article;
     theData.id = doc.id;
     return theData;
+  });
+  return res;
+}
+
+async function getAll(): Promise<CensoredArticle[]> {
+  const snap = await getDocs(articlesCollection);
+
+  const res = snap.docs.map((doc) => {
+    const theData = doc.data() as Article;
+    return { title: theData.title, id: doc.id };
   });
   return res;
 }
@@ -98,7 +99,8 @@ async function update(newArticle: Article): Promise<boolean> {
 export const Articles = {
   makeSnap: makeSnap,
   all: contents,
-  get: get,
+  get: getAll,
+  findBy: findBy,
   findById: findById,
   write: write,
   update: update,

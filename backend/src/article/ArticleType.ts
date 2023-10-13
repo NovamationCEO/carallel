@@ -15,3 +15,8 @@ export class ArticleDto {
   link: string;
   description?: string;
 }
+
+export type CensoredArticle = {
+  id: string;
+  title: string;
+};
