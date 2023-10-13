@@ -1,5 +1,4 @@
 import {
-  QuerySnapshot,
   addDoc,
   and,
   collection,
@@ -13,10 +12,10 @@ import {
 import { Article, CensoredArticle } from './ArticleType';
 import { auth, fireDB, login } from '../firebase/FireApp';
 
+type AnyObj = Record<string, string>;
 const articlesCollection = collection(fireDB, 'articles');
 
-let snap: QuerySnapshot;
-let contents: Article[] = [];
+let contents: CensoredArticle[] = [];
 
 async function makeSnap(): Promise<void> {
   if (!articlesCollection) return;
@@ -26,17 +25,8 @@ async function makeSnap(): Promise<void> {
     return;
   }
 
-  snap = await getDocs(articlesCollection);
-
-  contents = snap.docs.map((doc) => {
-    const theData = doc.data() as Article;
-    theData.id = doc.id;
-    return theData;
-  });
-  Articles.all = contents;
+  contents = await getAll();
 }
-
-type AnyObj = Record<string, string>;
 
 async function findById(id: string): Promise<Article> {
   const articleDoc = doc(articlesCollection, id);
@@ -72,7 +62,11 @@ async function getAll(): Promise<CensoredArticle[]> {
 
   const res = snap.docs.map((doc) => {
     const theData = doc.data() as Article;
-    return { title: theData.title, id: doc.id };
+    return {
+      title: theData.title,
+      id: doc.id,
+      description: theData.description,
+    };
   });
   return res;
 }

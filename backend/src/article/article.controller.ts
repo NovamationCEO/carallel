@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ArticleService } from './article.service';
-import { Article, ArticleDto } from './ArticleType';
+import { Article, ArticleDto, CensoredArticle } from './ArticleType';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('articles')
@@ -8,7 +8,7 @@ export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Get()
-  findAll(): Article[] {
+  findAll(): CensoredArticle[] {
     return this.articleService.findAll();
   }
 
