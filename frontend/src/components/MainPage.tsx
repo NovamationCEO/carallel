@@ -7,6 +7,8 @@ import { ListBox } from "./ListBox";
 import { Banner } from "./Banner";
 import { AddArticleSection } from "./AddArticleSection";
 import { CensoredArticle } from "types/Article";
+import { UserHistory } from "./UserHistory";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export function MainPage() {
   const [selectedArticle, setSelectedArticle] = React.useState(
@@ -18,6 +20,7 @@ export function MainPage() {
     "success" as AlertColor
   );
   const backgroundGradient = `linear-gradient(333deg, rgba(255,255,255,1) 64%, ${Colors.light} 100%)`;
+  const { isLoading } = useAuth0();
 
   function snack(text: string, severity: AlertColor) {
     setSnackbarText(text);
@@ -29,6 +32,8 @@ export function MainPage() {
     setSnackbarOpen(false);
     setTimeout(() => setSnackbarText(""), 70);
   }
+
+  if (isLoading) return <Box>Loading...</Box>;
 
   return (
     <Box
@@ -57,6 +62,7 @@ export function MainPage() {
         <Box flex={2} flexDirection={"column"}>
           <StatusBox />
           <DetailsBox selectedArticle={selectedArticle} />
+          <UserHistory selectedArticle={selectedArticle} />
         </Box>
         <Box flex={5}>
           <ListBox setSelectedArticle={setSelectedArticle} snack={snack} />

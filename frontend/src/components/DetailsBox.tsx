@@ -9,7 +9,7 @@ import { Article, CensoredArticle } from "types/Article";
 export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   const { selectedArticle } = props;
   const [warnVisible, setWarnVisible] = React.useState(false);
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [accessToken, setAccessToken] = React.useState("");
   let fullArticle: Article;
 
@@ -52,8 +52,41 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedArticle]);
 
-  function viewSite() {
+  async function viewSite() {
     if (isAuthenticated && fullArticle) {
+      if (!accessToken.length) return;
+
+      const userId = user?.sub?.split("|").slice(-1)[0];
+
+      try {
+        const response = await fetch(
+          `http://localhost:3001/userHistory/create`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify({
+              userId: userId,
+              date: Date.now(),
+              articleId: fullArticle.id,
+              link: fullArticle.link,
+              title: fullArticle.title,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error();
+        }
+      } catch (error) {
+        console.error(
+          "Error fetching article.  User not authenticated or request malformed. ",
+          error
+        );
+      }
+
       window.open(fullArticle.link);
       return;
     }

@@ -3,7 +3,7 @@ import { UserHistoryItem, UserHistoryDto } from './UserHistoryType';
 import { AuthGuard } from '@nestjs/passport';
 import { UserHistoryService } from './userHistory.service';
 
-@Controller('history')
+@Controller('userHistory')
 export class UserHistoryController {
   constructor(private readonly historyService: UserHistoryService) {}
 

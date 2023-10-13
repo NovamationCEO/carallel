@@ -9,9 +9,9 @@ import {
   where,
 } from 'firebase/firestore';
 import { auth, fireDB, login } from '../firebase/FireApp';
-import { UserHistoryItem } from './UserHistoryType';
+import { UserHistoryDto, UserHistoryItem } from './UserHistoryType';
 
-const userHistoryCollection = collection(fireDB, 'history');
+const userHistoryCollection = collection(fireDB, 'userHistory');
 
 let snap: QuerySnapshot;
 let contents: UserHistoryItem[] = [];
@@ -29,9 +29,8 @@ async function makeSnap(): Promise<void> {
   contents = snap.docs.map((doc) => {
     const theData = doc.data() as UserHistoryItem;
     return {
+      ...theData,
       id: doc.id,
-      articleId: theData.articleId,
-      date: theData.date,
     };
   });
   UserHistory.all = contents;
@@ -55,13 +54,13 @@ async function findByUserId(id: string): Promise<UserHistoryItem[]> {
   const querySnapshot = await getDocs(q);
   const res = [];
   querySnapshot.forEach((doc) => {
-    res.push(doc.data());
+    res.push({ ...doc.data(), id: doc.id });
   });
   return res;
 }
 
 async function write(
-  newHistory: Partial<UserHistoryItem>,
+  newHistory: Partial<UserHistoryDto>,
 ): Promise<string | boolean> {
   try {
     const res = await addDoc(userHistoryCollection, newHistory);

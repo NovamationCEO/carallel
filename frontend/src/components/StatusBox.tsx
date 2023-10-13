@@ -15,11 +15,9 @@ function StatusButton() {
 }
 
 export function StatusBox() {
-  const { user, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
-  const statusMessage = isAuthenticated
-    ? `Welcome, ${user.name}`
-    : "Please Sign In";
+  const statusMessage = isAuthenticated ? `Welcome!` : "Please Sign In";
   return (
     <ContentBox>
       <Box display={"flex"} flex={1} justifyContent={"space-between"}>
