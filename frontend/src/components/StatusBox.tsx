@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import { ContentBox } from "./ContentBox";
-import { LoginButton } from "./LoginButtonDefault";
+import { LoginButton } from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 

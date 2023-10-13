@@ -2,7 +2,7 @@ import React from "react";
 import { ContentBox } from "./ContentBox";
 import { Box, Button } from "@mui/material";
 import { Colors } from "constants/Colors";
-import { LoginButton } from "./LoginButtonDefault";
+import { LoginButton } from "./LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Article, CensoredArticle } from "types/Article";
 
