@@ -12,17 +12,34 @@ import { useAuth0 } from "@auth0/auth0-react";
 export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   const { selectedArticle } = props;
   const [warnVisible, setWarnVisible] = React.useState(false);
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [accessToken, setAccessToken] = React.useState("");
   let fullArticle: Article;
+
+  async function loadUser() {
+    const token = await getAccessTokenSilently();
+    setAccessToken(token);
+  }
 
   async function fetchIt() {
     if (!selectedArticle || !selectedArticle.id.length) return;
+    if (!accessToken.length) return;
     try {
       const response = await fetch(
-        `http://localhost:3001/articles/${selectedArticle.id}`
+        `http://localhost:3001/articles/${selectedArticle.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
-      const data = await response.json();
-      fullArticle = data;
+
+      if (!response.ok) {
+        return;
+      }
+      fullArticle = await response.json();
     } catch (error) {
       console.error(
         "Error fetching article.  User not authenticated or request malformed. ",
@@ -32,6 +49,7 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   }
 
   React.useEffect(() => {
+    loadUser();
     fetchIt();
   }, [selectedArticle]);
 

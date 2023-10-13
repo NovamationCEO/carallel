@@ -3,6 +3,7 @@ import React from "react";
 import { ContentBox } from "./ContentBox";
 import { Colors } from "constants/Colors";
 import { AddCircle } from "@mui/icons-material";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export function AddArticleSection(props: {
   snack: (text: string, severity?: AlertColor) => void;
@@ -13,6 +14,8 @@ export function AddArticleSection(props: {
   const [link, setLink] = React.useState("");
   const [showSection, setShowSection] = React.useState(false);
 
+  const { getAccessTokenSilently } = useAuth0();
+
   function clear() {
     setTitle("");
     setDescription("");
@@ -22,10 +25,13 @@ export function AddArticleSection(props: {
   async function submit() {
     const payload = { title, description, link };
 
+    const token = getAccessTokenSilently();
+
     fetch("http://localhost:3001/articles/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(payload),
     })
