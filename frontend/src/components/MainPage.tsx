@@ -20,7 +20,7 @@ export function MainPage() {
     "success" as AlertColor
   );
   const backgroundGradient = `linear-gradient(333deg, rgba(255,255,255,1) 64%, ${Colors.light} 100%)`;
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
   function snack(text: string, severity: AlertColor) {
     setSnackbarText(text);
@@ -68,7 +68,7 @@ export function MainPage() {
           <ListBox setSelectedArticle={setSelectedArticle} snack={snack} />
         </Box>
       </Box>
-      <AddArticleSection snack={snack} />
+      {isAuthenticated && <AddArticleSection snack={snack} />}
     </Box>
   );
 }

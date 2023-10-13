@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import React from "react";
 import { ContentBox } from "./ContentBox";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Article, CensoredArticle } from "types/Article";
+import { CensoredArticle } from "types/Article";
 
 export function UserHistory(props: { selectedArticle: CensoredArticle }) {
   const [userHistory, setUserHistory] = React.useState([]);
