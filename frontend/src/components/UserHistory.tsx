@@ -3,10 +3,12 @@ import React from "react";
 import { ContentBox } from "./ContentBox";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CensoredArticle } from "types/Article";
+import * as dotenv from "dotenv";
 
 export function UserHistory(props: { selectedArticle: CensoredArticle }) {
   const [userHistory, setUserHistory] = React.useState([]);
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  dotenv.config();
 
   React.useEffect(() => {
     fetchIt();
@@ -25,7 +27,7 @@ export function UserHistory(props: { selectedArticle: CensoredArticle }) {
     if (!accessToken.length) return;
     try {
       const response = await fetch(
-        `http://localhost:3001/userHistory/${userId}`,
+        `${process.env.BACKEND}/userHistory/${userId}`,
         {
           method: "GET",
           headers: {

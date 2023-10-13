@@ -5,6 +5,7 @@ import { Colors } from "constants/Colors";
 import { LoginButton } from "./LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Article, CensoredArticle } from "types/Article";
+import * as dotenv from "dotenv";
 
 export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   const { selectedArticle } = props;
@@ -12,6 +13,7 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [accessToken, setAccessToken] = React.useState("");
   let fullArticle: Article;
+  dotenv.config();
 
   async function loadUser() {
     const token = await getAccessTokenSilently();
@@ -23,7 +25,7 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
     if (!accessToken.length) return;
     try {
       const response = await fetch(
-        `http://localhost:3001/articles/${selectedArticle.id}`,
+        `${process.env.BACKEND}/articles/${selectedArticle.id}`,
         {
           method: "GET",
           headers: {
@@ -60,7 +62,7 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
 
       try {
         const response = await fetch(
-          `http://localhost:3001/userHistory/create`,
+          `${process.env.BACKEND}/userHistory/create`,
           {
             method: "POST",
             headers: {

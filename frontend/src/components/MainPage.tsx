@@ -2,7 +2,7 @@ import React from "react";
 import { Alert, AlertColor, Box, Snackbar } from "@mui/material";
 import { Colors } from "constants/Colors";
 import { StatusBox } from "./StatusBox";
-import { DetailsBox } from "./DetailsBox";
+import { DetailsBox } from "./DetailsBox.1";
 import { ListBox } from "./ListBox";
 import { Banner } from "./Banner";
 import { AddArticleSection } from "./AddArticleSection";
