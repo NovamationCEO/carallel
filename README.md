@@ -39,4 +39,12 @@ I don't have the time to polish this sample application further. But, if I did, 
 - Every once in a while, Auth0 seems to freak out during a refresh, briefly crashing the site. This is rare, and I'm not sure of the exact cause, yet, but it needs fixing.
 - Removing history items or articles wouldn't be difficult at all. Most of the code is there already, but there's no mechanism on the front end to do so.
 - Creating a new history item sends way too much data, but efforts to pull already-known information within the backend was just taking too long.
-- Testing is fairly pathetic.
+- Testing is fairly pathetic. I need to refresh myself with a crash course on finding the line between mocking nothing and testing nothing when it comes to NestJs. The front end is much easier, but I still need to figure out how to stand this up on Netlify and Friday is vanishing quickly. As is, testing is very sparse and that's a little embarassing.
+- Clicking View doesn't take you directly to the sign-in page, like the requirements asked for. It would be easy - just stuff in the same code from the Log In button. But as a user I hate getting redirected when it's not clear, and this solution allows for a little sales pitch, too. If this way is not acceptible, obviously it would have to go.
+- Getting granular user permissions in would probably be worthwhile if 'add article' is going to stay, but hopefully this works for a sample app.
+
+## Time
+
+There's clearly more polish that could be done, but hopefully something here is representative enough. Regardless of the outcome, thank you for taking a look, and for your time and consideration generally.
+
+- Chris
