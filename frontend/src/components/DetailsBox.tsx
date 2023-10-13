@@ -37,7 +37,7 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
       );
 
       if (!response.ok) {
-        return;
+        throw new Error();
       }
       fullArticle = await response.json();
     } catch (error) {
@@ -49,6 +49,7 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   }
 
   React.useEffect(() => {
+    if (!isAuthenticated) return;
     loadUser();
     fetchIt();
   }, [selectedArticle]);

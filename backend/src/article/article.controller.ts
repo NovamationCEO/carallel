@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { Article, ArticleDto, CensoredArticle } from './ArticleType';
-import { JwtAuthGuard } from '../auth/jwt-auth-guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('articles')
 export class ArticleController {
@@ -12,13 +12,13 @@ export class ArticleController {
     return this.articleService.findAll();
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Article> {
     return await this.articleService.findById(id);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthGuard('jwt'))
   @Post('create')
   async create(@Body() articleDto: ArticleDto): Promise<boolean> {
     return await this.articleService.create(articleDto);

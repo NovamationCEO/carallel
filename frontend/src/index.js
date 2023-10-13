@@ -12,6 +12,8 @@ root.render(
     clientId="igNUnKeiveKb5uv3xDr158ls3P3D7NqY"
     authorizationParams={{
       redirect_uri: window.location.origin,
+      audience: "https://bettergeek.auth0.com/api/v2/",
+      scope: "read:current_user update:current_user_metadata",
     }}
   >
     <React.StrictMode>
