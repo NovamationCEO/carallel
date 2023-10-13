@@ -1,13 +1,10 @@
 import React from "react";
 import { ContentBox } from "./ContentBox";
-import {
-  Article,
-  CensoredArticle,
-} from "../../../backend/dist/article/ArticleType";
 import { Box, Button } from "@mui/material";
 import { Colors } from "constants/Colors";
 import { LoginButton } from "./LoginButtonDefault";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Article, CensoredArticle } from "types/Article";
 
 export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   const { selectedArticle } = props;
@@ -52,6 +49,7 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
     if (!isAuthenticated) return;
     loadUser();
     fetchIt();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedArticle]);
 
   function viewSite() {

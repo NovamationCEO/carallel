@@ -2,11 +2,8 @@ import { Colors } from "constants/Colors";
 import { ContentBox } from "./ContentBox";
 import React from "react";
 import { AlertColor, Box } from "@mui/material";
-import {
-  Article,
-  CensoredArticle,
-} from "../../../backend/dist/article/ArticleType";
 import { ArticleItem } from "./ArticleItem";
+import { CensoredArticle } from "types/Article";
 
 export function ListBox(props: {
   setSelectedArticle: (a: CensoredArticle) => void;

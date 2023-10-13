@@ -5,11 +5,8 @@ import { StatusBox } from "./StatusBox";
 import { DetailsBox } from "./DetailsBox";
 import { ListBox } from "./ListBox";
 import { Banner } from "./Banner";
-import {
-  Article,
-  CensoredArticle,
-} from "../../../backend/dist/article/ArticleType";
 import { AddArticleSection } from "./AddArticleSection";
+import { CensoredArticle } from "types/Article";
 
 export function MainPage() {
   const [selectedArticle, setSelectedArticle] = React.useState(
