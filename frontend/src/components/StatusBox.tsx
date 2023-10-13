@@ -2,24 +2,29 @@ import { Box } from "@mui/material";
 import React from "react";
 import { ContentBox } from "./ContentBox";
 import { LoginButton } from "./LoginButtonDefault";
+import LogoutButton from "./LogoutButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
-function StatusButton(props: { signedIn: boolean }) {
-  const { signedIn } = props;
+function StatusButton() {
+  const { isAuthenticated } = useAuth0();
 
-  if (signedIn) {
-    return <button onClick={() => {}}>Sign Out</button>;
+  if (isAuthenticated) {
+    return <LogoutButton />;
   }
   return <LoginButton />;
 }
 
-export function StatusBox(props: { signedIn: boolean }) {
-  const { signedIn } = props;
-  const statusMessage = signedIn ? "Welcome, User" : "Please Sign In";
+export function StatusBox() {
+  const { user, isAuthenticated } = useAuth0();
+
+  const statusMessage = isAuthenticated
+    ? `Welcome, ${user.name}`
+    : "Please Sign In";
   return (
     <ContentBox>
       <Box display={"flex"} flex={1} justifyContent={"space-between"}>
         <Box>{statusMessage}</Box>
-        <StatusButton signedIn={signedIn} />
+        <StatusButton />
       </Box>
     </ContentBox>
   );

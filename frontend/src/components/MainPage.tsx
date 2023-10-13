@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, AlertColor, Box, IconButton, Snackbar } from "@mui/material";
+import { Alert, AlertColor, Box, Snackbar } from "@mui/material";
 import { Colors } from "constants/Colors";
 import { StatusBox } from "./StatusBox";
 import { DetailsBox } from "./DetailsBox";
@@ -7,10 +7,9 @@ import { ListBox } from "./ListBox";
 import { Banner } from "./Banner";
 import { Article } from "../../../backend/dist/article/ArticleType";
 import { AddArticleSection } from "./AddArticleSection";
-import { AddCircle } from "@mui/icons-material";
+import Profile from "./Profile";
 
 export function MainPage() {
-  const [signedIn, setSignedIn] = React.useState(false);
   const [selectedArticle, setSelectedArticle] = React.useState(
     undefined as Article
   );
@@ -42,7 +41,7 @@ export function MainPage() {
         background: backgroundGradient,
       }}
     >
-      <Banner signedIn={signedIn} setSignedIn={setSignedIn} />
+      <Banner />
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={6000}
@@ -57,14 +56,11 @@ export function MainPage() {
       </Snackbar>
       <Box display={"flex"} padding={1}>
         <Box flex={2} flexDirection={"column"}>
-          <StatusBox signedIn={signedIn} />
-          <DetailsBox selectedArticle={selectedArticle} signedIn={signedIn} />
+          <StatusBox />
+          <DetailsBox selectedArticle={selectedArticle} />
         </Box>
         <Box flex={5}>
-          <ListBox
-            setSelectedArticle={setSelectedArticle}
-            signedIn={signedIn}
-          />
+          <ListBox setSelectedArticle={setSelectedArticle} snack={snack} />
         </Box>
       </Box>
       <AddArticleSection snack={snack} />

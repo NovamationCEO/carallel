@@ -1,15 +1,15 @@
 import { Colors } from "constants/Colors";
 import { ContentBox } from "./ContentBox";
 import React from "react";
-import { Box } from "@mui/material";
+import { AlertColor, Box } from "@mui/material";
 import { Article } from "../../../backend/dist/article/ArticleType";
 import { ArticleItem } from "./ArticleItem";
 
 export function ListBox(props: {
   setSelectedArticle: (a: Article) => void;
-  signedIn?: boolean;
+  snack: (text: string, severity: AlertColor) => void;
 }) {
-  const { setSelectedArticle, signedIn = false } = props;
+  const { setSelectedArticle, snack } = props;
 
   const [articles, setArticles] = React.useState([] as Article[]);
 
@@ -21,6 +21,7 @@ export function ListBox(props: {
         setArticles(data);
       } catch (error) {
         console.error("Error fetching articles:", error);
+        snack("Error fetching articles. " + error, "error");
       }
     }
 
