@@ -3,12 +3,11 @@ import React from "react";
 import { ContentBox } from "./ContentBox";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CensoredArticle } from "types/Article";
-import * as dotenv from "dotenv";
+import { UserHistoryItem } from "types/UserHistoryType";
 
 export function UserHistory(props: { selectedArticle: CensoredArticle }) {
-  const [userHistory, setUserHistory] = React.useState([]);
+  const [userHistory, setUserHistory] = React.useState([] as UserHistoryItem[]);
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  dotenv.config();
 
   React.useEffect(() => {
     fetchIt();
@@ -51,7 +50,9 @@ export function UserHistory(props: { selectedArticle: CensoredArticle }) {
 
   if (!isAuthenticated) return null;
 
-  userHistory.sort((a, b) => a.date - b.date);
+  userHistory.sort((a, b) => {
+    return Number(a.date) - Number(b.date);
+  });
   if (!userHistory.length) return null;
 
   return (

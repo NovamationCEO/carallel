@@ -12,7 +12,7 @@ import { DetailsBox } from "./DetailsBox";
 
 export function MainPage() {
   const [selectedArticle, setSelectedArticle] = React.useState(
-    undefined as CensoredArticle
+    undefined as unknown as CensoredArticle
   );
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarText, setSnackbarText] = React.useState("");
@@ -22,9 +22,9 @@ export function MainPage() {
   const backgroundGradient = `linear-gradient(333deg, rgba(255,255,255,1) 64%, ${Colors.light} 100%)`;
   const { isLoading, isAuthenticated } = useAuth0();
 
-  function snack(text: string, severity: AlertColor) {
+  function snack(text: string, severity?: AlertColor) {
     setSnackbarText(text);
-    setSnackbarSeverity(severity);
+    setSnackbarSeverity(severity || "success");
     setSnackbarOpen(true);
   }
 

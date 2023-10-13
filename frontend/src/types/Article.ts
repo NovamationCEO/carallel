@@ -5,12 +5,6 @@ export type Article = {
   description?: string;
 };
 
-export class ArticleDto {
-  title: string;
-  link: string;
-  description?: string;
-}
-
 export type CensoredArticle = {
   id: string;
   title: string;

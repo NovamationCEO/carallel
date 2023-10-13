@@ -4,7 +4,6 @@ import React from "react";
 import { AlertColor, Box } from "@mui/material";
 import { ArticleItem } from "./ArticleItem";
 import { CensoredArticle } from "types/Article";
-import * as dotenv from "dotenv";
 
 export function ListBox(props: {
   setSelectedArticle: (a: CensoredArticle) => void;
@@ -13,9 +12,9 @@ export function ListBox(props: {
   const { setSelectedArticle, snack } = props;
 
   const [articles, setArticles] = React.useState([] as CensoredArticle[]);
-  dotenv.config();
 
   React.useEffect(() => {
+    console.log("HITTING", `${process.env.BACKEND}/articles`);
     async function fetchIt() {
       try {
         const response = await fetch(`${process.env.BACKEND}/articles`);

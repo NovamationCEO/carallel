@@ -5,7 +5,6 @@ import { Colors } from "constants/Colors";
 import { LoginButton } from "./LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Article, CensoredArticle } from "types/Article";
-import * as dotenv from "dotenv";
 
 export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   const { selectedArticle } = props;
@@ -13,7 +12,6 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [accessToken, setAccessToken] = React.useState("");
   let fullArticle: Article;
-  dotenv.config();
 
   async function loadUser() {
     const token = await getAccessTokenSilently();
