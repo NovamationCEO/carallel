@@ -5,12 +5,15 @@ import { StatusBox } from "./StatusBox";
 import { DetailsBox } from "./DetailsBox";
 import { ListBox } from "./ListBox";
 import { Banner } from "./Banner";
-import { Article } from "../../../backend/dist/article/ArticleType";
+import {
+  Article,
+  CensoredArticle,
+} from "../../../backend/dist/article/ArticleType";
 import { AddArticleSection } from "./AddArticleSection";
 
 export function MainPage() {
   const [selectedArticle, setSelectedArticle] = React.useState(
-    undefined as Article
+    undefined as CensoredArticle
   );
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarText, setSnackbarText] = React.useState("");

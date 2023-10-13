@@ -1,12 +1,15 @@
 import { Box } from "@mui/material";
 import React from "react";
-import { Article } from "../../../backend/dist/article/ArticleType";
+import {
+  Article,
+  CensoredArticle,
+} from "../../../backend/dist/article/ArticleType";
 import { Description } from "@mui/icons-material";
 import { Colors } from "../constants/Colors";
 
 export function ArticleItem(props: {
-  article: Article;
-  setSelectedArticle: (a: Article) => void;
+  article: CensoredArticle;
+  setSelectedArticle: (a: CensoredArticle) => void;
 }) {
   const { article, setSelectedArticle } = props;
   return (

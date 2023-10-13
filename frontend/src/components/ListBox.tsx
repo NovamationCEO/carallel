@@ -2,16 +2,19 @@ import { Colors } from "constants/Colors";
 import { ContentBox } from "./ContentBox";
 import React from "react";
 import { AlertColor, Box } from "@mui/material";
-import { Article } from "../../../backend/dist/article/ArticleType";
+import {
+  Article,
+  CensoredArticle,
+} from "../../../backend/dist/article/ArticleType";
 import { ArticleItem } from "./ArticleItem";
 
 export function ListBox(props: {
-  setSelectedArticle: (a: Article) => void;
+  setSelectedArticle: (a: CensoredArticle) => void;
   snack: (text: string, severity: AlertColor) => void;
 }) {
   const { setSelectedArticle, snack } = props;
 
-  const [articles, setArticles] = React.useState([] as Article[]);
+  const [articles, setArticles] = React.useState([] as CensoredArticle[]);
 
   React.useEffect(() => {
     async function fetchIt() {

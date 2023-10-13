@@ -1,19 +1,43 @@
 import React from "react";
 import { ContentBox } from "./ContentBox";
-import { Article } from "../../../backend/dist/article/ArticleType";
+import {
+  Article,
+  CensoredArticle,
+} from "../../../backend/dist/article/ArticleType";
 import { Box, Button } from "@mui/material";
 import { Colors } from "constants/Colors";
 import { LoginButton } from "./LoginButtonDefault";
 import { useAuth0 } from "@auth0/auth0-react";
 
-export function DetailsBox(props: { selectedArticle: Article }) {
+export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
   const { selectedArticle } = props;
   const [warnVisible, setWarnVisible] = React.useState(false);
   const { isAuthenticated } = useAuth0();
+  let fullArticle: Article;
+
+  async function fetchIt() {
+    if (!selectedArticle || !selectedArticle.id.length) return;
+    try {
+      const response = await fetch(
+        `http://localhost:3001/articles/${selectedArticle.id}`
+      );
+      const data = await response.json();
+      fullArticle = data;
+    } catch (error) {
+      console.error(
+        "Error fetching article.  User not authenticated or request malformed. ",
+        error
+      );
+    }
+  }
+
+  React.useEffect(() => {
+    fetchIt();
+  }, [selectedArticle]);
 
   function viewSite() {
-    if (isAuthenticated) {
-      window.open(selectedArticle.link);
+    if (isAuthenticated && fullArticle) {
+      window.open(fullArticle.link);
       return;
     }
     setWarnVisible(true);
