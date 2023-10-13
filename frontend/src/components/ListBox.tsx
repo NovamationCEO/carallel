@@ -4,7 +4,9 @@ import React from "react";
 import { AlertColor, Box } from "@mui/material";
 import { ArticleItem } from "./ArticleItem";
 import { CensoredArticle } from "types/Article";
+import * as dotenv from "dotenv";
 
+dotenv.config();
 export function ListBox(props: {
   setSelectedArticle: (a: CensoredArticle) => void;
   snack: (text: string, severity: AlertColor) => void;
