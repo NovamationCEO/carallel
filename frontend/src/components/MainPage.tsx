@@ -7,7 +7,6 @@ import { ListBox } from "./ListBox";
 import { Banner } from "./Banner";
 import { Article } from "../../../backend/dist/article/ArticleType";
 import { AddArticleSection } from "./AddArticleSection";
-import Profile from "./Profile";
 
 export function MainPage() {
   const [selectedArticle, setSelectedArticle] = React.useState(
