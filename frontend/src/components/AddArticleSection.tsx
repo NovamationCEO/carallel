@@ -26,7 +26,7 @@ export function AddArticleSection(props: {
     const payload = { title, description, link };
     const token = getAccessTokenSilently();
 
-    fetch(`${process.env.BACKEND}/articles/create`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/articles/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

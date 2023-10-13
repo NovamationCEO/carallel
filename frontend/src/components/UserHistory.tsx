@@ -26,7 +26,7 @@ export function UserHistory(props: { selectedArticle: CensoredArticle }) {
     if (!accessToken.length) return;
     try {
       const response = await fetch(
-        `${process.env.BACKEND}/userHistory/${userId}`,
+        `${process.env.REACT_APP_BACKEND}/userHistory/${userId}`,
         {
           method: "GET",
           headers: {

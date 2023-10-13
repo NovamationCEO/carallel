@@ -23,7 +23,7 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
     if (!accessToken.length) return;
     try {
       const response = await fetch(
-        `${process.env.BACKEND}/articles/${selectedArticle.id}`,
+        `${process.env.REACT_APP_BACKEND}/articles/${selectedArticle.id}`,
         {
           method: "GET",
           headers: {
@@ -60,7 +60,7 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
 
       try {
         const response = await fetch(
-          `${process.env.BACKEND}/userHistory/create`,
+          `${process.env.REACT_APP_BACKEND}/userHistory/create`,
           {
             method: "POST",
             headers: {
