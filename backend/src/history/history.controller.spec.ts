@@ -18,7 +18,7 @@ describe('AppController', () => {
   });
 
   describe('Articles', () => {
-    it('should return an array when getting all', async () => {
+    it('should return an empty array when getting by fake userId', async () => {
       const res = await historyController.findByUserId('3');
       expect(res).toBeDefined();
       expect(Array.isArray(res)).toBe(true);

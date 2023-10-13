@@ -5,11 +5,9 @@
   backend API
 - Next, implement deep linking capabilities so that when someone opens the link to an article,
   they are asked to login/signup and then directed to the said article.
-- Create back-end apis, using express/node.js or nest.js (preferred), that provide authentication
-  capabilities, creates a jwt token, and validate the token at login and all API calls.
+- Create back-end apis, using express/node.js or nest.js (preferred), that provide authentication capabilities, creates a jwt token, and validate the token at login and all API calls.
 - In addition, maintain a history of all the links a person went to in a db.
-  Note: For this exercise, you can use an open source library or auth0 as your identity provider, and an in-
-  memory db.
+  Note: For this exercise, you can use an open source library or auth0 as your identity provider, and an in-memory db.
 
 ### Evaluation Criteria:
 
