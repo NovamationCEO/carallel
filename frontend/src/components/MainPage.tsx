@@ -2,13 +2,13 @@ import React from "react";
 import { Alert, AlertColor, Box, Snackbar } from "@mui/material";
 import { Colors } from "constants/Colors";
 import { StatusBox } from "./StatusBox";
-import { DetailsBox } from "./DetailsBox.1";
 import { ListBox } from "./ListBox";
 import { Banner } from "./Banner";
 import { AddArticleSection } from "./AddArticleSection";
 import { CensoredArticle } from "types/Article";
 import { UserHistory } from "./UserHistory";
 import { useAuth0 } from "@auth0/auth0-react";
+import { DetailsBox } from "./DetailsBox";
 
 export function MainPage() {
   const [selectedArticle, setSelectedArticle] = React.useState(

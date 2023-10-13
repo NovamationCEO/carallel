@@ -28,6 +28,7 @@ export function ListBox(props: {
     }
 
     fetchIt();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
