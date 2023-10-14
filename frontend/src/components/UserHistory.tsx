@@ -25,16 +25,13 @@ export function UserHistory(props: { selectedArticle: CensoredArticle }) {
 
     if (!accessToken.length) return;
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND}/userHistory/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await fetch(`/api/userHistory/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error();

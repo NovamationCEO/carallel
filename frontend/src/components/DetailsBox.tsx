@@ -22,16 +22,13 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
     if (!selectedArticle || !selectedArticle.id.length) return;
     if (!accessToken.length) return;
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND}/articles/${selectedArticle.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await fetch(`/api/articles/${selectedArticle.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error();
@@ -59,23 +56,20 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
       const userId = user?.sub?.split("|").slice(-1)[0];
 
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND}/userHistory/create`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-            body: JSON.stringify({
-              userId: userId,
-              date: Date.now(),
-              articleId: fullArticle.id,
-              link: fullArticle.link,
-              title: fullArticle.title,
-            }),
-          }
-        );
+        const response = await fetch(`/api/userHistory/create`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            userId: userId,
+            date: Date.now(),
+            articleId: fullArticle.id,
+            link: fullArticle.link,
+            title: fullArticle.title,
+          }),
+        });
 
         if (!response.ok) {
           throw new Error();
