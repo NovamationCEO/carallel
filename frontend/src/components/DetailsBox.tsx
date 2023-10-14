@@ -30,7 +30,6 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          mode: "no-cors",
         }
       );
 
@@ -75,7 +74,6 @@ export function DetailsBox(props: { selectedArticle: CensoredArticle }) {
               link: fullArticle.link,
               title: fullArticle.title,
             }),
-            mode: "no-cors",
           }
         );
 

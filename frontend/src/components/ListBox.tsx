@@ -13,15 +13,11 @@ export function ListBox(props: {
 
   const [articles, setArticles] = React.useState([] as CensoredArticle[]);
 
-  console.log(process.env);
-
   React.useEffect(() => {
-    console.log("HITTING", `${process.env.REACT_APP_BACKEND}/articles`);
     async function fetchIt() {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND}/articles`,
-          { mode: "no-cors" }
+          `${process.env.REACT_APP_BACKEND}/articles`
         );
         const data = await response.json();
         setArticles(data);

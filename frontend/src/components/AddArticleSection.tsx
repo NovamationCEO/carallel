@@ -24,7 +24,7 @@ export function AddArticleSection(props: {
 
   async function submit() {
     const payload = { title, description, link };
-    const token = getAccessTokenSilently();
+    const token = await getAccessTokenSilently();
 
     fetch(`${process.env.REACT_APP_BACKEND}/articles/create`, {
       method: "POST",
