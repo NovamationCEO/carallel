@@ -1,5 +1,0 @@
-[[redirects]]
-  from = "/*"
-  to = "https://iridescent-hamster-968872.netlify.app/:splat"
-  status = 200
-  force = true
