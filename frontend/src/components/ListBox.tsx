@@ -20,7 +20,8 @@ export function ListBox(props: {
     async function fetchIt() {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND}/articles`
+          `${process.env.REACT_APP_BACKEND}/articles`,
+          { mode: "no-cors" }
         );
         const data = await response.json();
         setArticles(data);

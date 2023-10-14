@@ -33,6 +33,7 @@ export function UserHistory(props: { selectedArticle: CensoredArticle }) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
+          mode: "no-cors",
         }
       );
 
